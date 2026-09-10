@@ -52,36 +52,42 @@ export default function CallPage() {
   return (
     <div className="call-page">
       <div className="call-card">
-        <span className="eyebrow">Stol</span>
-        <h1>{tableName}</h1>
+        <div className="call-card__media" aria-label="Decorative banner">
+          <img src="/IMG_0921.PNG" alt="" className="call-card__banner" />
+        </div>
 
-        {status === "sent" ? (
-          <>
-            <div className="call-card__success">✅ So'rovingiz yuborildi</div>
+        <div className="call-card__content">
+          <span className="eyebrow">Stol</span>
+          <h1>{tableName}</h1>
+
+          {status === "sent" ? (
+            <>
+              <div className="call-card__success">✅ So'rovingiz yuborildi</div>
+              <p className="call-card__hint">
+                Ofitsiant tez orada stolingizga yaqinlashadi.
+                {secondsLeft > 0 && (
+                  <> Qayta chaqirish uchun {secondsLeft} soniya kuting.</>
+                )}
+              </p>
+            </>
+          ) : (
             <p className="call-card__hint">
-              Ofitsiant tez orada stolingizga yaqinlashadi.
-              {secondsLeft > 0 && (
-                <> Qayta chaqirish uchun {secondsLeft} soniya kuting.</>
-              )}
+              Yordam kerakmi? Quyidagi tugmani bosing — ofitsiantga darhol
+              xabar boradi.
             </p>
-          </>
-        ) : (
-          <p className="call-card__hint">
-            Yordam kerakmi? Quyidagi tugmani bosing — ofitsiantga darhol
-            xabar boradi.
-          </p>
-        )}
+          )}
 
-        <button
-          type="button"
-          className="call-button"
-          disabled={!canCall || status === "sending"}
-          onClick={handleCall}
-        >
-          {status === "sending" ? "Yuborilmoqda..." : "🔔 Ofitsiantni chaqirish"}
-        </button>
+          <button
+            type="button"
+            className="call-button"
+            disabled={!canCall || status === "sending"}
+            onClick={handleCall}
+          >
+            {status === "sending" ? "Yuborilmoqda..." : "🔔 Ofitsiantni chaqirish"}
+          </button>
 
-        {status === "error" && <p className="call-card__error">{errorMsg}</p>}
+          {status === "error" && <p className="call-card__error">{errorMsg}</p>}
+        </div>
       </div>
     </div>
   );
