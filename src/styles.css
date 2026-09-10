@@ -224,22 +224,23 @@ a:focus-visible {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 24px;
+  padding: 20px 0;
   background: var(--pine-dark);
 }
 
 .call-card {
   background: var(--paper);
   max-width: 420px;
-  width: 100%;
+  width: calc(100% - 18px);
   text-align: center;
   border-top: 6px solid var(--gold);
   overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
 }
 
 .call-card__media {
   width: 100%;
-  height: 146px;
+  height: 118px;
   overflow: hidden;
   background: var(--pine-dark);
 }
@@ -253,7 +254,7 @@ a:focus-visible {
 }
 
 .call-card__content {
-  padding: 24px 32px 28px;
+  padding: 20px 22px 22px;
 }
 
 .call-card .eyebrow {
@@ -312,5 +313,33 @@ a:focus-visible {
 @media (max-width: 480px) {
   .add-form__row {
     flex-direction: column;
+  }
+
+  .call-page {
+    padding: 0;
+    background: var(--pine-dark);
+  }
+
+  .call-card {
+    width: 100%;
+    max-width: 100%;
+    border-radius: 0;
+  }
+
+  .call-card__media {
+    height: 110px;
+  }
+
+  .call-card h1 {
+    font-size: clamp(2.1rem, 11vw, 3rem);
+  }
+
+  .call-card__hint {
+    font-size: 1.05rem;
+  }
+
+  .call-button {
+    min-height: 54px;
+    font-size: 1.06rem;
   }
 }
