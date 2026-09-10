@@ -224,23 +224,23 @@ a:focus-visible {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 20px 0;
+  padding: 8px 0 6px;
   background: var(--pine-dark);
 }
 
 .call-card {
   background: var(--paper);
   max-width: 420px;
-  width: calc(100% - 18px);
+  width: 100%;
   text-align: center;
-  border-top: 6px solid var(--gold);
   overflow: hidden;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
+  box-shadow: none;
+  margin: 0 8px;
 }
 
 .call-card__media {
   width: 100%;
-  height: 118px;
+  height: 120px;
   overflow: hidden;
   background: var(--pine-dark);
 }
@@ -254,7 +254,7 @@ a:focus-visible {
 }
 
 .call-card__content {
-  padding: 20px 22px 22px;
+  padding: 18px 20px 20px;
 }
 
 .call-card .eyebrow {
@@ -262,23 +262,32 @@ a:focus-visible {
 }
 
 .call-card h1 {
-  font-size: clamp(1.8rem, 6vw, 2.4rem);
+  font-size: clamp(2.3rem, 8vw, 4rem);
   margin-bottom: 18px;
+  letter-spacing: -0.04em;
+  line-height: 0.95;
 }
 
 .call-card__hint {
   color: rgba(33, 29, 23, 0.75);
   line-height: 1.55;
-  margin: 0 0 28px;
+  margin: 0 auto 26px;
+  max-width: 330px;
 }
 
 .call-button {
-  width: 100%;
+  width: min(100%, 360px);
+  margin: 0 auto;
   padding: 18px 20px;
   background: var(--pine);
   color: #fff;
   font-size: 1.1rem;
   font-weight: 700;
+  border-radius: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
   transition: background 0.15s ease, transform 0.1s ease;
 }
 
@@ -324,22 +333,29 @@ a:focus-visible {
     width: 100%;
     max-width: 100%;
     border-radius: 0;
+    margin: 0;
   }
 
   .call-card__media {
     height: 110px;
   }
 
+  .call-card__content {
+    padding: 18px 18px 20px;
+  }
+
   .call-card h1 {
-    font-size: clamp(2.1rem, 11vw, 3rem);
+    font-size: clamp(2.3rem, 11vw, 3.1rem);
   }
 
   .call-card__hint {
     font-size: 1.05rem;
+    max-width: 290px;
   }
 
   .call-button {
     min-height: 54px;
     font-size: 1.06rem;
+    width: 100%;
   }
 }
