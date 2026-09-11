@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "react-router-dom";
+import { canCallNow, shouldExitCooldown } from "../lib/cooldown.js";
 import { callWaiter } from "../lib/telegram.js";
 
 const COOLDOWN_MS = 60_000;
@@ -28,7 +29,13 @@ export default function CallPage() {
   }, [initialRemaining]);
 
   useEffect(() => {
-    if (status !== "sent" || secondsLeft <= 0) return;
+    if (status !== "sent") return;
+    if (secondsLeft <= 0) {
+      setStatus("idle");
+      setErrorMsg("");
+      return;
+    }
+
     const t = setTimeout(() => setSecondsLeft((s) => s - 1), 1000);
     return () => clearTimeout(t);
   }, [status, secondsLeft]);
@@ -47,7 +54,7 @@ export default function CallPage() {
     }
   }
 
-  const canCall = status === "idle" || status === "error";
+  const canCall = canCallNow(status, secondsLeft);
 
   return (
     <div className="call-page">
