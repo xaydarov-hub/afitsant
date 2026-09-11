@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import AddTableForm from "../components/AddTableForm.jsx";
 import TableCard from "../components/TableCard.jsx";
-import { loadTables, addTable, removeTable } from "../lib/storage.js";
+import { loadTables, addTable, addBulkTables, removeTable, clearAllTables } from "../lib/storage.js";
 
 export default function AdminPage() {
   const [tables, setTables] = useState([]);
@@ -15,9 +15,28 @@ export default function AdminPage() {
     setTables(next);
   }
 
+  function handleBulkAdd(prefix, count) {
+    const { tables: next } = addBulkTables(prefix, count);
+    setTables(next);
+  }
+
   function handleDelete(id) {
     if (!window.confirm("Bu stolni va uning QR kodini o'chirmoqchimisiz?")) return;
     setTables(removeTable(id));
+  }
+
+  function handleClearAll() {
+    const enteredPassword = window.prompt("Parolni kiriting:");
+    if (enteredPassword === null) return;
+
+    if (enteredPassword !== "....") {
+      window.alert("Noto'g'ri parol!");
+      return;
+    }
+
+    if (!window.confirm("Hamma stollarni tozalashni xohlaysizmi?")) return;
+
+    setTables(clearAllTables());
   }
 
   return (
@@ -32,7 +51,13 @@ export default function AdminPage() {
         </p>
       </header>
 
-      <AddTableForm onAdd={handleAdd} />
+      <AddTableForm onAdd={handleAdd} onBulkAdd={handleBulkAdd} />
+
+      <div style={{ marginTop: 16, marginBottom: 12 }}>
+        <button type="button" onClick={handleClearAll} style={{ background: "#b91c1c", color: "#fff" }}>
+          Hammasini tozalash
+        </button>
+      </div>
 
       {tables.length === 0 ? (
         <div className="empty">

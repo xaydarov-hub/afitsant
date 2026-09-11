@@ -25,10 +25,41 @@ export function addTable(name) {
   return { tables: next, table };
 }
 
+export function addBulkTables(prefix, count) {
+  const trimmedPrefix = String(prefix || "").trim();
+  const safeCount = Number(count) || 0;
+
+  if (!trimmedPrefix || safeCount <= 0) {
+    return { tables: loadTables(), added: [] };
+  }
+
+  const tables = loadTables();
+  const added = [];
+
+  for (let i = 1; i <= safeCount; i += 1) {
+    const name = `${trimmedPrefix} ${i}`.trim();
+    const table = {
+      id: Date.now().toString(36) + Math.random().toString(36).slice(2, 6) + i,
+      name,
+      createdAt: Date.now() + i,
+    };
+    added.push(table);
+  }
+
+  const next = [...tables, ...added];
+  saveTables(next);
+  return { tables: next, added };
+}
+
 export function removeTable(id) {
   const next = loadTables().filter((t) => t.id !== id);
   saveTables(next);
   return next;
+}
+
+export function clearAllTables() {
+  localStorage.removeItem(KEY);
+  return [];
 }
 
 export function buildCallUrl(table) {
